@@ -1,5 +1,6 @@
 <template>
     <div class="p-8">
+        <FlashMessage />
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">My Topics</h1>
             <a href="/topics/create" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -33,6 +34,7 @@
 <script setup>
     import { router } from '@inertiajs/vue3';
     import { ref } from 'vue';
+    import FlashMessage from '@/Components/FlashMessage.vue';
 
     const props = defineProps({
         topics: Array

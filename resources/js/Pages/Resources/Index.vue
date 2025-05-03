@@ -1,5 +1,6 @@
 <template>
     <div class="p-8">
+        <FlashMessage />
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">My Resources</h1>
             <a href="/resources/create" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
@@ -39,6 +40,7 @@
 
 <script setup>
     import { router } from '@inertiajs/vue3';
+    import FlashMessage from '@/Components/FlashMessage.vue';
 
     const props = defineProps({
         resources: Array
