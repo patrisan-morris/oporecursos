@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\TopicController;
+use App\Http\Controllers\ResourceController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -25,6 +27,10 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::resource('topics', \App\Http\Controllers\TopicController::class);
+    Route::resource('topics', TopicController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('resources', ResourceController::class);
 });
 require __DIR__.'/auth.php';
