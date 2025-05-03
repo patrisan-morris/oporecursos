@@ -59,7 +59,7 @@ APP_URL=http://localhost
 
 ## Demo Access
 
-Email: demo@opo.com
+Email: <demo@opo.com>
 
 Password: password
 
@@ -74,7 +74,7 @@ Production configuration and documentation will be updated when ready.
 
 - [x] Private resources per user
 
-- [x] Multi-topic association for each resource
+- [] Multi-topic association for each resource
 
 - [] Tagging system for resources
 
