@@ -12,8 +12,20 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                mindbank: {
+                    primary: '#65268E',
+                    secondary: '#9D4EDD',
+                    background: '#FFFFFF',
+                    text: '#1E293B',
+                    lightbg: '#E0D7F3',
+                    accent: '#A78BFA',
+                    gradientStart: '#5A189A',
+                    gradientEnd: '#9D4EDD',
+                },
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans:  ['Inter', ...defaultTheme.fontFamily.sans],
             },
         },
     },
