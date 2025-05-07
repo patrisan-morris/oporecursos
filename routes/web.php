@@ -8,6 +8,13 @@ use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ResourceController;
 
 Route::get('/', function () {
+    return Inertia::render('GuestLanding', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+    ]);
+});
+
+Route::get('/welcome', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),
         'canRegister' => Route::has('register'),
