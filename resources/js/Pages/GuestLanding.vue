@@ -57,7 +57,7 @@
         </section>
 
         <!-- Call to Action Section -->
-        <section class="bg-gradient-to-b from-lightPrimary to-primary py-20 text-center px-6 relative">
+        <section class="bg-gradient-to-b from-primary to-lightPrimary py-20 text-center px-6 relative">
 
             <WaveBackground fromColor="#ffffff" toColor="#ffffff" height="h-24"/>
 

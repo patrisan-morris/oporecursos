@@ -22,8 +22,8 @@
         </div>
 
         <!-- Footer -->
-        <footer class="flex flex-row items-center justify-center gap-2 bg-gradient-to-b from-primary to-darkPrimary py-6 text-center text-white text-sm w-full">
-            Developed by <a href="https://patmorris.netlify.app" target="_blank" class="text-lightPrimary font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">Patricia Morillas</a> © {{ new Date().getFullYear() }} {{ $page.props.appName }}.
+        <footer class="flex flex-row items-center justify-center gap-2 bg-gradient-to-b from-lightPrimary to-lightPrimary py-6 text-center text-white text-sm w-full">
+            Developed by <a href="https://patmorris.netlify.app" target="_blank" class="text-darkPrimary font-bold hover:underline focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2">Patricia Morillas</a> © {{ new Date().getFullYear() }} {{ $page.props.appName }}.
         </footer>
     </div>
 </template>
