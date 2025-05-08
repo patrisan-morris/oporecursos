@@ -3,11 +3,11 @@
         <Head title="Log in" />
         <section class="bg-gradient-to-b from-darkPrimary to-lightPrimary min-h-screen flex items-center justify-center">
             <transition enter-active-class="transition ease-out duration-500" enter-from-class="opacity-0 translate-y-5" enter-to-class="opacity-100 translate-y-0" >
-                <div v-show="showForm" class="max-w-xs lg:max-w-6xl w-full flex flex-col md:flex-row items-center md:items-center text-white gap-32">
+                <div v-show="showForm" class="max-w-xs lg:max-w-6xl w-full flex flex-col md:flex-row items-center md:items-center text-white gap-10">
                     <!-- Left side (Text) -->
                     <div class="flex flex-col w-full md:w-1/2 pr-8">
-                        <h1 class="text-4xl leading-md text-shadow-sm mb-4">Sign in to your account</h1>
-                        <p class="text-lg text-gray-200">Enter your credentials to access your account.</p>
+                        <h1 class="text-4xl  md:text-5xl leading-md text-shadow-sm mb-4">Sign in to your account</h1>
+                        <p class="text-lg md:text-xl text-gray-100">Enter your credentials to access your account.</p>
                     </div>
                     <!-- Right side (Form) -->
                     <div class="w-full md:w-1/2 bg-white text-primary rounded-2xl shadow-md p-8">

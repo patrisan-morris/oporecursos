@@ -7,7 +7,7 @@
                     <!-- Left side (Text) -->
                     <div class="flex flex-col w-full md:w-1/2 text-center md:text-left">
                         <h1 class="text-4xl md:text-5xl leading-md text-shadow-sm mb-4">Welcome to {{ $page.props.appName }}</h1>
-                        <p class="text-lg md:text-xl text-gray-300">
+                        <p class="text-lg md:text-xl text-gray-100">
                             Create your account and start organizing your knowledge and ideas today.
                         </p>
                     </div>

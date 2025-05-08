@@ -7,7 +7,7 @@
                     <!-- Left side (Text) -->
                     <div class="flex flex-col w-full md:w-1/2 pr-8">
                         <h1 class="text-4xl leading-md text-shadow-sm mb-4">Thanks for signing up!</h1>
-                        <p class="text-lg text-gray-200">Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.</p>
+                        <p class="text-lg md:text-xltext-gray-100">Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another.</p>
                     </div>
                     <!-- Right side (Form) -->
                     <div class="w-full md:w-1/2 bg-white text-primary rounded-2xl shadow-md p-8">

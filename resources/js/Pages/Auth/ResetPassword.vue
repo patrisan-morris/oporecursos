@@ -6,8 +6,8 @@
                 <div v-show="showForm" class="max-w-xs lg:max-w-6xl w-full flex flex-col md:flex-row items-center md:items-center text-white gap-32">
                     <!-- Left side (Text) -->
                     <div class="flex flex-col w-full md:w-1/2 pr-8">
-                        <h1 class="text-4xl leading-md text-shadow-sm mb-4">Sign in to your account</h1>
-                        <p class="text-lg text-gray-200">Enter your credentials to access your account.</p>
+                        <h1 class="text-4xl md:text-5xl leading-md text-shadow-sm mb-4">Reset your password</h1>
+                        <p class="text-lg md:text-xl text-gray-100">Enter your new password below to access your account.</p>
                     </div>
                     <!-- Right side (Form) -->
                     <div class="w-full md:w-1/2 bg-white text-primary rounded-2xl shadow-md p-8">
