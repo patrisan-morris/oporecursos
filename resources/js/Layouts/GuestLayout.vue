@@ -7,11 +7,14 @@
                 <h1 class="text-4xl font-light text-white ml-2 tracking-widest mt-1 text-shadow-sm">{{$page.props.appName}}</h1>
             </Link>
             <nav class="flex space-x-4 mt-4">
-                <Link v-if="$page.component != 'Auth/Login'" href="/login">
+                <Link v-if="$page.component != 'Auth/Login' && !$page.props.auth.user" href="/login">
                     <PrimaryButton class="hover:text-darkPrimary">Log in</PrimaryButton>
                 </Link>
-                <Link v-if="$page.component != 'Auth/Register'" href="/register">
+                <Link v-if="$page.component != 'Auth/Register' && !$page.props.auth.user" href="/register">
                     <PrimaryButton class="hover:text-darkPrimary">Register</PrimaryButton>
+                </Link>
+                <Link v-if="$page.component != 'Auth/Register' && $page.component != 'Auth/Login' && $page.props.auth.user" href="/dashboard">
+                    <PrimaryButton class="hover:text-darkPrimary">Dashboard</PrimaryButton>
                 </Link>
             </nav>
         </header>

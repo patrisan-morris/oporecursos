@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ResourceController;
+use App\Models\Resource;
+use App\Models\Topic;
+use App\Models\User;
 
 Route::get('/', function () {
     return Inertia::render('GuestLanding', [
@@ -24,7 +27,11 @@ Route::get('/welcome', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    return Inertia::render('Dashboard',[
+        'topicsCount' => Topic::count(),
+        'resourcesCount' => Resource::count(),
+        'usersCount' => User::count(),
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
