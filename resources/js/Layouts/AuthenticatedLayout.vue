@@ -31,12 +31,11 @@
         </div>
     </aside>
 
-    <div class="p-4 sm:ml-64">
-        <main>
+    <div class="sm:ml-64">
+        <main class="px-12 py-10">
             <slot />
         </main>
     </div>
-
 </template>
 <script setup>
 
@@ -46,13 +45,14 @@
     import TopicsIcon from '@/Components/Icons/Topics.vue'
     import ResourcesIcon from '@/Components/Icons/Resources.vue'
     import UsersIcon from '@/Components/Icons/Users.vue'
+    import UserIcon from '@/Components/Icons/User.vue'
     import SettingsIcon from '@/Components/Icons/Settings.vue'
     import LogOutIcon from '@/Components/Icons/LogOut.vue'
     import Dropdown from '@/Components/Dropdown.vue'
     import DropdownLink from '@/Components/DropdownLink.vue'
     import NavLink from '@/Components/NavLink.vue'
     import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
-    import { Link } from '@inertiajs/vue3'
+    import { usePage, Link } from '@inertiajs/vue3'
 
     const showingNavigationDropdown = ref(false)
 
@@ -64,7 +64,7 @@
     ]
 
     const menuBottom = [
-        { name: 'Settings', href: '/settings', Icon:SettingsIcon },
+        { name: usePage().props.auth.user.name, href: '/profile', Icon:UserIcon },
         { name: 'Log out', href: '/logout', Icon:LogOutIcon },
     ]
 </script>

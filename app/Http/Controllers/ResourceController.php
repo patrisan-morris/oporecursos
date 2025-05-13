@@ -22,7 +22,7 @@ class ResourceController extends Controller{
             ->where('user_id', auth()->id())
             ->get();
 
-        return Inertia::render('Resources/Index', [
+        return Inertia::render('Resources', [
             'resources' => $resources,
         ]);
     }

@@ -19,7 +19,7 @@ class TopicController extends Controller{
     public function index(): Response {
         $topics = Topic::where('user_id', auth()->id())->get();
 
-        return Inertia::render('Topics/Index', [
+        return Inertia::render('Topics', [
             'topics' => $topics,
         ]);
     }
