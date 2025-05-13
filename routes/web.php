@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\TopicController;
 use App\Http\Controllers\ResourceController;
+use App\Http\Controllers\UserController;
 use App\Models\Resource;
 use App\Models\Topic;
 use App\Models\User;
@@ -46,5 +47,9 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('resources', ResourceController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('users', UserController::class);
 });
 require __DIR__.'/auth.php';

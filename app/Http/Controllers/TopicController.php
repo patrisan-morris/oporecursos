@@ -25,15 +25,6 @@ class TopicController extends Controller{
     }
 
     /**
-     * Show the form for creating a new topic.
-     *
-     * @return Response
-     */
-    public function create(): Response {
-        return Inertia::render('Topics/Create');
-    }
-
-    /**
      * Store a newly created topic in storage.
      *
      * @param Request $request
@@ -52,19 +43,6 @@ class TopicController extends Controller{
         return redirect()->route('topics.index')->with('success', 'Topic created successfully.');
     }
 
-    /**
-     * Show the form for editing the specified topic.
-     *
-     * @param Topic $topic
-     * @return Response
-     */
-    public function edit(Topic $topic): Response {
-        $this->authorize('update', $topic);
-
-        return Inertia::render('Topics/Edit', [
-            'topic' => $topic,
-        ]);
-    }
 
     /**
      * Update the specified topic in storage.

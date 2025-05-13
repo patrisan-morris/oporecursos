@@ -5,7 +5,7 @@
             <FlashMessage />
             <div class="flex justify-between items-start mb-6">
                 <div class="flex flex-col w-full pr-8">
-                    <div class="flex flex-row items-start">
+                    <div class="flex flex-row items-start gap-2">
                         <ResourceIcon class="text-primary size-10 fill-primary" title="Resources"/>
                         <h1 class="font-medium leading-relaxed text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-darkPrimary to-lightPrimary mb-4">Resources</h1>
                     </div>
