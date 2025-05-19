@@ -35,6 +35,23 @@ export default {
             },
         },
     },
+    safelist: [
+        {
+            pattern: /col-span-\d+/,
+            variants: ['sm', 'md', 'lg', 'xl', '2xl'],
+        }
+    ],
+    plugins: [
+        forms,
+        require('tailwindcss-textshadow'),
+        function ({ addBase, theme }) {
+            addBase({
+                ':root': {
+                '--scroll-dark': theme('colors.darkPrimary'),
+                '--scroll-light': theme('colors.lightPrimary'),
+                },
+            })
+        }
 
-    plugins: [forms, require('tailwindcss-textshadow')],
+    ],
 };

@@ -64,7 +64,7 @@
     import { reactive, ref, nextTick } from 'vue'
     import FlashMessage from '@/Components/FlashMessage.vue'
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-    import PrimaryButton from '@/Components/PrimaryButton.vue'
+    import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue'
     import UserIcon from '@/Components/Icons/Users.vue'
     import EditIcon from '@/Components/Icons/Edit.vue'
     import RemoveIcon from '@/Components/Icons/Remove.vue'

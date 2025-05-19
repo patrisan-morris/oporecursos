@@ -25,10 +25,10 @@
 </template>
 
 <script setup>
-    import PrimaryButton from '../PrimaryButton.vue'
-    import InputLabel from '../InputLabel.vue'
-    import TextInput from '../TextInput.vue'
-    import InputError from '../InputError.vue'
+    import PrimaryButton from '../Buttons/PrimaryButton.vue'
+    import InputLabel from '../ItemForm/InputLabel.vue'
+    import TextInput from '../ItemForm/TextInput.vue'
+    import InputError from '../ItemForm/InputError.vue'
 
     const props = defineProps({
         form: Object,

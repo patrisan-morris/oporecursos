@@ -17,10 +17,11 @@ class TopicController extends Controller{
      * @return Response
      */
     public function index(): Response {
-        $topics = Topic::where('user_id', auth()->id())->get();
+        $topics = Topic::where('user_id', auth()->id())->with('resources','lessons', 'parent')->get();
 
         return Inertia::render('Topics', [
             'topics' => $topics,
+            'columns' => Topic::$tableColumns,
         ]);
     }
 
@@ -58,9 +59,11 @@ class TopicController extends Controller{
             'name' => ['required', 'string', 'max:255'],
         ]);
 
-        $topic->update([
-            'name' => $request->name,
-        ]);
+        \Log::info('Solicitud de actualización recibida', $request->all());
+
+        $topic->update($request->only(['name', 'color', 'icon', 'order', 'parent_id']));
+
+        \Log::info('Topic actualizado', $topic->toArray());
 
         return redirect()->route('topics.index')->with('success', 'Topic updated successfully.');
     }

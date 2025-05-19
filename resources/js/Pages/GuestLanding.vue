@@ -83,6 +83,6 @@
     import CategorizeIcon from '@/Components/Icons/Categorize.vue'
     import AccessIcon from '@/Components/Icons/Access.vue'
     import WaveBackground from '@/Components/Backgrounds/Wave.vue'
-    import PrimaryButton from '@/Components/PrimaryButton.vue'
+    import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue'
     import { Head, Link } from '@inertiajs/vue3'
 </script>

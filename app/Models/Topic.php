@@ -12,20 +12,59 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  *
  * @property string $name
  * @property int $user_id
+ * @property int $parent_id
+ * @property string $color
+ * @property string $icon
+ * @property int $order
+ *
  *
  * @method BelongsToMany resources()
  * @method BelongsTo user()
+ * @method BelongsTo parent()
+ *
  */
 class Topic extends Model{
     use HasFactory;
 
-    protected $fillable = ['name', 'user_id'];
+    protected $fillable = ['name', 'user_id', 'parent_id', 'color', 'icon', 'order'];
+    public static array $tableColumns = [
+        'name' => ['label' => 'Name', 'listable' => true, 'sortable' => true, 'align' => 'left','type' => 'text', 'formable'=> true, 'formClass'=> 'col-span-6','autocomplete' => 'name'],
+        'parent_id' => ['label' => 'Parent', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'select', 'formable'=> true, 'formClass'=> 'col-span-5','autocomplete' => 'off', 'tableable' => ['parent'=>'name']],
+        'order' => ['label' => 'Order', 'listable' => false, 'sortable' => true, 'align' => 'center','type' => 'number', 'formable'=> true, 'formClass'=> 'col-span-1','autocomplete' => 'off'],
+        'color' => ['label' => 'Color', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'color', 'formable'=> true, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
+        'icon' => ['label' => 'Icon', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'icon', 'formable'=> true, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
+        'created_at' => ['label' => 'Created At', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'date', 'formable'=> false, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
+        'updated_at' => ['label' => 'Updated At', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'date', 'formable'=> false, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
+        'actions' => ['label' => '', 'listable' => true, 'sortable' => false, 'align' => 'right', 'type' => null, 'formable'=> false, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
+    ];
 
     /**
      * Get the user that owns the topic.
      */
     public function user(){
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get the parent topic.
+     */
+    public function parent(){
+        return $this->belongsTo(Topic::class, 'parent_id');
+    }
+
+    /**
+     * Get the child topics.
+     */
+    public function children(){
+        return $this->hasMany(Topic::class, 'parent_id');
+    }
+
+
+    /**
+     * Get the lessons.
+     */
+    public function lessons(){
+        return $this->belongsToMany(Lesson::class);
     }
 
     /**

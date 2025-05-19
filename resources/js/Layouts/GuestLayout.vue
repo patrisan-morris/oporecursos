@@ -32,7 +32,7 @@
 </template>
 
 <script setup>
-    import PrimaryButton from '@/Components/PrimaryButton.vue';
+    import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue';
     import IconLogo from '@/Components/Logos/IconLogo.vue';
     import NameLogo from '@/Components/Logos/NameLogo.vue';
     import { Link } from '@inertiajs/vue3';

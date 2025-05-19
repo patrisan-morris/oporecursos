@@ -31,7 +31,7 @@
         </div>
     </aside>
 
-    <div class="sm:ml-64">
+    <div class="sm:ml-64 bg-gray-100 h-screen">
         <main class="px-12 py-10">
             <slot />
         </main>
@@ -48,10 +48,10 @@
     import UserIcon from '@/Components/Icons/User.vue'
     import SettingsIcon from '@/Components/Icons/Settings.vue'
     import LogOutIcon from '@/Components/Icons/LogOut.vue'
-    import Dropdown from '@/Components/Dropdown.vue'
-    import DropdownLink from '@/Components/DropdownLink.vue'
-    import NavLink from '@/Components/NavLink.vue'
-    import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue'
+    import Dropdown from '@/Components/Menus/Dropdown.vue'
+    import DropdownLink from '@/Components/Menus/DropdownLink.vue'
+    import NavLink from '@/Components/Menus/NavLink.vue'
+    import ResponsiveNavLink from '@/Components/Menus/ResponsiveNavLink.vue'
     import { usePage, Link } from '@inertiajs/vue3'
 
     const showingNavigationDropdown = ref(false)

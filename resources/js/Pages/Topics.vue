@@ -4,46 +4,37 @@
         <div class="">
             <FlashMessage />
             <div class="flex justify-between items-start mb-6">
-                <div class="flex flex-col w-full pr-8">
+                <div class="flex flex-col pr-8">
                     <div class="flex flex-row items-start gap-2">
                         <TopicIcon class="text-primary size-10 fill-primary" title="Topics"/>
                         <h1 class="font-medium leading-relaxed text-3xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-darkPrimary to-lightPrimary mb-4">Topics</h1>
                     </div>
-                    <p class="text-gray-600 font-normal text-lg tracking-wide">Manage your topics related to idea and knowledge management.</p>
                 </div>
-                <div class="w-1/6">
-                    <PrimaryButton class="w-full bg-primary hover:bg-white hover:border-primary hover:text-primary" @click.prevent="toogleModal(true, 'create', null)">
-                        + New Topic
+                <div class="flex flex-row justify-between gap-2">
+                    <PrimaryButton customClass="px-2 py-3" class="border-2 bg-primary text-white fill-white hover:bg-white border-primary hover:text-primary transitial-all duration-300" @click.prevent="toogleView()">
+                        <SearchIcon class="size-6" title="Search"/>
+                    </PrimaryButton>
+                    <PrimaryButton customClass="px-2 py-3" class="border-2 bg-primary text-white fill-white hover:bg-white border-primary hover:text-primary transitial-all duration-300" @click.prevent="toogleView()">
+                        <FilterIcon class="size-6" title="Filter"/>
+                    </PrimaryButton>
+                    <PrimaryButton customClass="px-2 py-3" class="border-2 bg-primary text-white fill-white hover:bg-white border-primary hover:text-primary transitial-all duration-300" @click.prevent="toogleView()">
+                        <GridIcon v-if="viewTable === 'list'" class="size-6" title="Grid"/>
+                        <ListIcon v-else class="size-6" title="List"/>
+                    </PrimaryButton>
+                    <PrimaryButton customClass="px-4 py-3" class="border-2 bg-primary text-white fill-white hover:bg-white border-primary hover:text-primary transitial-all duration-300" @click.prevent="toogleModal({show:true, type:'create', id:null})">
+                        + Topic
                     </PrimaryButton>
                 </div>
             </div>
 
-            <div class="bg-white rounded border-2 border-lightPrimary shadow-md">
-                <table class="w-full table-auto">
-                    <thead>
-                        <tr class="text-left border-b border-lightPrimary bg-lightPrimary/30 text-gray-900">
-                            <th class="p-4">Name</th>
-                            <th class="p-4">Created at</th>
-                            <th class="p-4 text-right"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="topic in topics" :key="topic.id" class="odd:bg-lightPrimary/5 even:bg-lightPrimary/10 hover:bg-lightPrimary/20">
-                            <td class="px-4 py-3">{{ topic.name }}</td>
-                            <td class="px-4 py-3">{{ formatDate(topic.created_at) }}</td>
-                            <td class="flex flex-row items-center justify-end px-6 py-3 space-x-2 text-right">
-                                <button @click.prevent="toogleModal(true, 'edit', topic.id)">
-                                    <EditIcon class="text-gray-900 size-6 fill-gray-900" title="Edit"/>
-                                </button>
-                                <button @click.prevent="toogleModal(true, 'delete', topic.id)">
-                                    <RemoveIcon class="text-gray-900 size-6 fill-gray-900" title="Delete"/>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <Modal :show="showModal" @close="toogleModal(false)">
+            <section v-if="viewTable === 'list'">
+                <Table :columns="columns" :data="topics" :sortColumn="sortColumn" :sortDirection="sortDirection" @sortByColumn="sortByColumn" @openModal="toogleModal">
+                </Table>
+            </section>
+            <section v-if="viewTable === 'grid'">
+                <Grid :data="topics" type="topic" @openModal="toogleModal"></Grid>
+            </section>
+            <Modal :show="showModal" @close="toogleModal({show:false})">
                 <div class="flex flex-col items-center py-10 px-32">
                     <h2 class="font-medium leading-relaxed text-3xl md:text-4xl text-transparent bg-clip-text bg-primary mb-4">
                         {{ modal.title }}
@@ -51,7 +42,7 @@
                     <div class="mt-6 w-full">
                         <p v-if="modal.action === 'delete'" class="bg-red-100 text-red-800 rounded shadow mb-4 p-4 w-full text-center"> Are you sure to delete this topic?</p>
                         <div class="text-sm text-gray-600 w-full">
-                            <Form :form="form" :submit="modal.submit" :buttonLabel="modal.button" />
+                            <Form :form="form" :columns="columns" :topics="topics" :submit="modal.submit" :buttonLabel="modal.button" />
                         </div>
                     </div>
                 </div>
@@ -62,32 +53,31 @@
 <script setup>
     import { Head, router, Link, usePage } from '@inertiajs/vue3'
     import { reactive, ref, nextTick } from 'vue'
+    import TopicIcon from '@/Components/Icons/Topics.vue'
+    import GridIcon from '@/Components/Icons/Grid.vue'
+    import ListIcon from '@/Components/Icons/List.vue'
+    import SearchIcon from '@/Components/Icons/Search.vue'
+    import FilterIcon from '@/Components/Icons/Filter.vue'
+    import TopicFolderIcon from '@/Components/TopicFolder.vue'
     import FlashMessage from '@/Components/FlashMessage.vue'
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
-    import PrimaryButton from '@/Components/PrimaryButton.vue'
-    import TopicIcon from '@/Components/Icons/Topics.vue'
-    import EditIcon from '@/Components/Icons/Edit.vue'
-    import RemoveIcon from '@/Components/Icons/Remove.vue'
+    import PrimaryButton from '@/Components/Buttons/PrimaryButton.vue'
     import Modal from '@/Components/Modal.vue'
     import Form from '@/Components/Forms/TopicForm.vue'
+    import Table from '@/Components/Table.vue'
+    import Grid from '@/Components/Grid.vue'
 
     const props = defineProps({
-        topics: Array
+        topics: Array,
+        columns: Object,
     })
 
     const page = usePage()
-
-    const formatDate = (dateStr) => {
-        const date = new Date(dateStr)
-        const day = String(date.getDate()).padStart(2, '0')
-        const month = String(date.getMonth() + 1).padStart(2, '0')
-        const year = String(date.getFullYear())
-
-        return `${day}/${month}/${year}`
-    }
-
     const showModal = ref(false)
-
+    const form = reactive({})
+    const viewTable = ref('list')
+    const sortColumn = ref('name');
+    const sortDirection = ref('asc');
     const modal = reactive({
         title: 'Create Topic',
         action: 'create',
@@ -96,7 +86,6 @@
         submit: () => {
             const url = modal.action === 'create' ? '/topics' : `/topics/${modal.id}`
             const method = modal.action === 'create' ? 'post' : modal.action === 'edit' ? 'put' : 'delete'
-
             router.visit(url, {
                 method,
                 data: form,
@@ -105,7 +94,7 @@
                 onSuccess: async () => {
                     await nextTick();
                     if (!hasValidationErrors()) {
-                        toogleModal(false)
+                        toogleModal({show:false})
                     }
                 },
                 onError: (errors) => {
@@ -115,17 +104,36 @@
         },
     })
 
-    const form = reactive({
-        name: '',
-        disabled: false,
-    })
+    resetForm()
 
-    const resetForm = () => {
-        form.name = ''
-        form.disabled = false
+    function sortByColumn(column){
+        if (sortColumn.value === column) {
+            sortDirection.value = sortDirection.value === 'asc' ? 'desc' : 'asc';
+        } else {
+            sortColumn.value = column;
+            sortDirection.value = 'asc';
+        }
+        props.topics.sort((a, b) => {
+            if (a[column] < b[column]) {
+                return sortDirection.value === 'asc' ? -1 : 1;
+            }
+            if (a[column] > b[column]) {
+                return sortDirection.value === 'asc' ? 1 : -1;
+            }
+            return 0;
+        });
     }
 
-    const toogleModal = (show, type = 'create', id = null) => {
+    function resetForm(topic = null){
+        Object.keys(props.columns).forEach(key => {
+            form[key] = topic ? topic[key] : ''
+        })
+        if(topic === null){
+            form['disabled'] = false
+        }
+    }
+
+    function toogleModal({show, type = 'create', id = null}){
         showModal.value = show
         if(show){
             modal.action = type
@@ -135,14 +143,18 @@
             form.disabled = type === 'delete' ? true : false
             if (type !== 'create') {
                 const topic = props.topics.find(topic => topic.id === id)
-                form.name = topic.name
+                resetForm(topic)
             } else {
                 resetForm()
             }
         }
     }
 
-    const hasValidationErrors = () => {
+    function toogleView(){
+        viewTable.value = viewTable.value === 'list' ? 'grid' : 'list'
+    }
+
+    function hasValidationErrors(){
         return page.props.errors && Object.keys(page.props.errors).length > 0
     }
 
