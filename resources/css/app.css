@@ -38,3 +38,14 @@
 	/*background:rgb(var(--primary));*/
     background-image:-webkit-linear-gradient(var(--scroll-dark), var(--scroll-light));
 }
+
+.large {
+    @apply px-6 py-3;
+}
+
+.medium{
+    @apply px-4 py-3;
+}
+.small {
+    @apply px-2 py-3;
+}

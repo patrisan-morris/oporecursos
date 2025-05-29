@@ -22,8 +22,11 @@ class ResourceController extends Controller{
             ->where('user_id', auth()->id())
             ->get();
 
-        return Inertia::render('Resources', [
-            'resources' => $resources,
+        return Inertia::render('Crud', [
+            'nameData' => 'Resources',
+            'data' => $resources,
+            'columns' => Resource::$tableColumns,
+            'filterColumns' => Resource::$filterColumns,
         ]);
     }
 

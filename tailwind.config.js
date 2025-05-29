@@ -9,7 +9,6 @@ export default {
         './resources/views/**/*.blade.php',
         './resources/js/**/*.vue',
     ],
-
     theme: {
         extend: {
             colors: {
@@ -44,14 +43,18 @@ export default {
     plugins: [
         forms,
         require('tailwindcss-textshadow'),
-        function ({ addBase, theme }) {
+        function ({ addBase, addUtilities, theme }) {
             addBase({
                 ':root': {
                 '--scroll-dark': theme('colors.darkPrimary'),
                 '--scroll-light': theme('colors.lightPrimary'),
                 },
             })
-        }
-
+            addUtilities({
+                '.clip-path-triangle': {
+                'clip-path': 'polygon(100% 0, 100% 100%, 0 0)',
+                },
+            })
+        },
     ],
 };

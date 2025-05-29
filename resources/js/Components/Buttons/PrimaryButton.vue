@@ -8,14 +8,20 @@
     import { computed } from 'vue'
 
     const props = defineProps({
-        customClass: {
+        size: {
             type: String,
-            default: 'py-3 px-6'
+            default: 'large'
+        },
+        customClass: {
+            type: Array,
+            default: ['bg-primary text-white fill-white']
         }
     })
 
     const computedClass = computed(() => {
-        return `bg-primary text-white font-semibold rounded-lg shadow-md hover:bg-white border-primary border-2 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 ${props.customClass}`
+        return `font-semibold rounded-lg shadow-md hover:bg-white hover:text-primary hover:fill-primary border-primary border-2 tracking-wide focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-all duration-300 ${props.customClass} ${props.size}`
     })
 
 </script>
+
+

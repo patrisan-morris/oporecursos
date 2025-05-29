@@ -11,7 +11,7 @@
                     <ul class="space-y-2">
                         <li v-for="item in menuTop" :key="item.name" :class="['py-2 px-4 rounded-md hover:bg-white/10',$page.url.startsWith(item.href) ? 'bg-white/30 hover:bg-white/30' : '' ]" >
                             <Link :href="item.href" class="flex items-center group">
-                                <component :is="item.Icon" class="text-white size-6 fill-white" />
+                                <component :is="menuMap[item.Icon]" class="text-white size-6 fill-white" />
                                 <span class="ms-3 text-white tracking-wider text-md">{{ item.name }}</span>
                             </Link>
                         </li>
@@ -22,7 +22,7 @@
                 <ul class="space-y-2">
                     <li v-for="item in menuBottom" :key="item.name" :class="['py-2 px-4 rounded-md hover:bg-white/10',$page.url.startsWith(item.href) ? 'bg-white/30 hover:bg-white/30' : '' ]" >
                         <Link :href="item.href" class="flex items-center group">
-                            <component :is="item.Icon" class="text-white size-6 fill-white" />
+                            <component :is="menuMap[item.Icon]" class="text-white size-6 fill-white" />
                             <span class="ms-3 text-white tracking-wider text-md">{{ item.name }}</span>
                         </Link>
                     </li>
@@ -31,7 +31,7 @@
         </div>
     </aside>
 
-    <div class="sm:ml-64 bg-gray-100 h-screen">
+    <div class="sm:ml-64 bg-gray-100 min-h-screen">
         <main class="px-12 py-10">
             <slot />
         </main>
@@ -41,30 +41,26 @@
 
     import { ref } from 'vue';
     import IconLogo from '@/Components/Logos/IconLogo.vue'
-    import DashboardIcon from '@/Components/Icons/Dashboard.vue'
-    import TopicsIcon from '@/Components/Icons/Topics.vue'
-    import ResourcesIcon from '@/Components/Icons/Resources.vue'
-    import UsersIcon from '@/Components/Icons/Users.vue'
-    import UserIcon from '@/Components/Icons/User.vue'
-    import SettingsIcon from '@/Components/Icons/Settings.vue'
-    import LogOutIcon from '@/Components/Icons/LogOut.vue'
     import Dropdown from '@/Components/Menus/Dropdown.vue'
     import DropdownLink from '@/Components/Menus/DropdownLink.vue'
     import NavLink from '@/Components/Menus/NavLink.vue'
     import ResponsiveNavLink from '@/Components/Menus/ResponsiveNavLink.vue'
     import { usePage, Link } from '@inertiajs/vue3'
+    import { menuMap } from '@/Utils/map.js'
 
     const showingNavigationDropdown = ref(false)
 
     const menuTop = [
-        { name: 'Dashboard', href: '/dashboard', Icon:DashboardIcon },
-        { name: 'Topics', href: '/topics', Icon:TopicsIcon },
-        { name: 'Resources', href: '/resources', Icon:ResourcesIcon },
-        { name: 'Users', href: '/users', Icon:UsersIcon },
+        { name: 'Dashboard', href: '/dashboard', Icon:'Dashboard' },
+        { name: 'MindExplorer', href: '/mindexplorer', Icon:'MindExplorer'}
+        /*{ name: 'Topics', href: '/topics', Icon:'Topics' },
+        { name: 'Lessons', href: '/lessons', Icon:'Lessons' },
+        { name: 'Resources', href: '/resources', Icon:'Resources' },
+        { name: 'Users', href: '/users', Icon:'Users' },*/
     ]
 
     const menuBottom = [
-        { name: usePage().props.auth.user.name, href: '/profile', Icon:UserIcon },
-        { name: 'Log out', href: '/logout', Icon:LogOutIcon },
+        { name: usePage().props.auth.user.name, href: '/profile', Icon:'User' },
+        { name: 'Log out', href: '/logout', Icon:'LogOut' },
     ]
 </script>

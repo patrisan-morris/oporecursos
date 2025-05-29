@@ -4,10 +4,13 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\MindExplorerController;
 use App\Http\Controllers\TopicController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ResourceController;
 use App\Http\Controllers\UserController;
 use App\Models\Resource;
+use App\Models\Lesson;
 use App\Models\Topic;
 use App\Models\User;
 
@@ -36,6 +39,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/mindexplorer', [MindExplorerController::class, 'index'])->name('mindexplorer.index');
+});
+
+Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -47,6 +54,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::resource('resources', ResourceController::class);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::resource('lessons', LessonController::class);
 });
 
 Route::middleware('auth')->group(function () {

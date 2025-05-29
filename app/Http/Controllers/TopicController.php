@@ -19,9 +19,11 @@ class TopicController extends Controller{
     public function index(): Response {
         $topics = Topic::where('user_id', auth()->id())->with('resources','lessons', 'parent')->get();
 
-        return Inertia::render('Topics', [
-            'topics' => $topics,
+        return Inertia::render('Crud', [
+            'nameData' => 'Topics',
+            'data' => $topics,
             'columns' => Topic::$tableColumns,
+            'filterColumns' => Topic::$filterColumns,
         ]);
     }
 
@@ -40,6 +42,7 @@ class TopicController extends Controller{
             'name' => $request->name,
             'user_id' => auth()->id(),
         ]);
+
 
         return redirect()->route('topics.index')->with('success', 'Topic created successfully.');
     }

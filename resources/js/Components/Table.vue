@@ -50,7 +50,7 @@
 <script setup>
     import SortFillIcon from '@/Components/Icons/SortFill.vue'
     import SortIcon from '@/Components/Icons/Sort.vue'
-    import { iconMap } from '@/Utils/iconMap.js'
+    import { iconMap } from '@/Utils/map.js'
     import ActionsData from '@/Components/ActionsData.vue'
     import { ref } from 'vue'
 

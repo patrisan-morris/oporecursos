@@ -37,6 +37,12 @@ class Topic extends Model{
         'updated_at' => ['label' => 'Updated At', 'listable' => true, 'sortable' => true, 'align' => 'center','type' => 'date', 'formable'=> false, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
         'actions' => ['label' => '', 'listable' => true, 'sortable' => false, 'align' => 'right', 'type' => null, 'formable'=> false, 'formClass'=> 'col-span-3','autocomplete' => 'off'],
     ];
+    public static array $filterColumns = [
+        'color' => ['label' => 'Color', 'type' => 'color'],
+        'icon' => ['label' => 'Icon', 'type' => 'icon'],
+        'created' => ['label' => 'Created', 'type' => 'array', 'elements' => [['id' => 'created_from','label' => 'From', 'type' => 'date'],['id' => 'created_to','label' => 'To', 'type' => 'date']]],
+        'updated' => ['label' => 'Updated', 'type' => 'array', 'elements' => [['id' => 'updated_from','label' => 'From', 'type' => 'date'],['id' => 'updated_to','label' => 'To', 'type' => 'date']]],
+    ];
 
     /**
      * Get the user that owns the topic.

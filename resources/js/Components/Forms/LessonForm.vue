@@ -1,7 +1,7 @@
 <template>
     <form @submit.prevent="submit" novalidate>
         <div class="grid grid-cols-6 mb-4 gap-6">
-            <div v-for="([key,column]) in formableColumns" :key="key" :class="`${column.formClass} flex flex-col justify-start items-start mb-2 gap-2`">
+            <div v-for="([key,column]) in filteredColumns" :key="key" :class="`${column.formClass} flex flex-col justify-start items-start mb-2 gap-2`">
                 <InputLabel v-if="column.type !== 'color' && column.type !== 'icon'"  :for="key" :value="`${column.label}:`" class="text-lightPrimary font-semibold text-[16px] pb-1"/>
                 <span v-else class="text-lightPrimary font-semibold text-[16px]">{{ column.label }}:</span>
                 <TextInput v-if="column.type === 'text' || column.type === 'number'" :id="key" :type="column.type" :autocomplete="column.autocomplete" class="block w-full focus:border-lightPrimary focus:ring-lightPrimary text-md disabled:bg-gray-100" v-model="form[key]" required autofocus :disabled="form.disabled"/>
@@ -39,7 +39,7 @@
     const props = defineProps({
         form: Object,
         columns: Object,
-        data: Array,
+        topics: Array,
         submit: Function,
         buttonLabel: {
             type: String,
@@ -47,7 +47,7 @@
         }
     })
 
-    const formableColumns = computed(() => {
+    const filteredColumns = computed(() => {
         return Object.entries(props.columns).filter(([key, column]) => {
             return column.formable
         })
@@ -57,7 +57,7 @@
         const base = { null: 'No parent' }
 
         let mapped = Object.fromEntries(
-            props.data.map(topic => {
+            props.topics.map(topic => {
                 return [topic.id, topic.name]
             })
         )
