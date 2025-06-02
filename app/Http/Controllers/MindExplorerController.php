@@ -20,9 +20,11 @@ class MindExplorerController extends Controller{
             return $topic->setAttribute('type', 'topic');
         });
         $lessons = Lesson::where('user_id', auth()->id())->with('topics')->get()->map(function($lesson){
+            $lesson->setRelation('topics', $lesson->topics ?? collect());
             return $lesson->setAttribute('type', 'lesson');
         });
         $resources = Resource::where('user_id', auth()->id())->with('topics')->get()->map(function($resource){
+            $resource->setRelation('topics', $resource->topics ?? collect());
             return $resource->setAttribute('type', 'resource');
         });
 

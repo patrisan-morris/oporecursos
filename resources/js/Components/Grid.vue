@@ -25,7 +25,7 @@
     </div>
 
     <!-- Grid de hijos -->
-    <section v-if="children.length > 0" class="grid grid-flow-row grid-cols-6 gap-10">
+    <section v-if="children.length > 0" class="grid grid-flow-row grid-cols-6 md:grid-cols-4 sm:grid-cols-4 gap-10">
         <article  v-for="item in children" :key="item.id" class="flex flex-col items-center justify-center gap-2 col-span-1" @click="currentId = item.id" >
             <component :is="previewMap[capitalize(item.type)]" :data="item" @goTo="goTo" @openModal="emit('openModal',$event)"/>
         </article>
@@ -38,7 +38,7 @@
 </template>
 
 <script setup>
-    import { ref, computed } from 'vue'
+    import { ref, computed, toRaw } from 'vue'
     import { iconMap, backgroundMap, previewMap, breadcrumbMap } from '@/Utils/map.js'
     import { capitalize } from '@/Utils/helpers.js'
     import ActionsData from '@/Components/ActionsData.vue'
@@ -57,19 +57,15 @@
     const children = computed(() =>
         // props.data.filter(t => t.parent_id === currentId.value)
         props.data.filter(item => {
-            let result;
-            if(item.type === 'topic'){
-                result = item.parent_id === currentId.value
-            }else{
-                result = item.topics.length === 0
-            }
+            let result
+            
+            result = item.type === 'topic' ? item.parent_id === currentId.value : 
+                (item.topics.length === 0 && currentId.value === null) ? true :
+                false
+            
             return result
         })
     )
-
-    console.log(props.data)
-    console.log(children.value)
-    console.log(currentId.value)
 
     const breadcrumb = computed(() => {
         const path = []
